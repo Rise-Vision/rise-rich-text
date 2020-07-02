@@ -2,12 +2,22 @@
 
 ## Introduction
 
-`rise-rich-text` is a Polymer 3 Web Component that renders text
+`rise-rich-text` is a Polymer 3 Web Component that renders Rich Text
 
-#### Example
+#### Examples
 
+##### HTML
 ```
-  <rise-rich-text id="rise-rich-text-greeting" value="Hello World!">
+  <rise-rich-text
+    id="rise-rich-text-greeting"
+    rich-text="<span style='font-size:100px; color:green'>Hello World!</span>">
+  </rise-rich-text>
+```
+##### Plain Text
+```
+  <rise-rich-text
+    id="rise-rich-text-greeting" 
+    rich-text="Hello World!">
   </rise-rich-text>
 ```
 
@@ -21,32 +31,18 @@ This attribute holds a literal value, for example:
   <rise-rich-text
     id="rise-rich-text-greeting"
     label="Greeting"
-    value="Hello World!">
+    rich-text="Hello World!">
   </rise-rich-text>
 ```
 
 If it's not set, the label for the component defaults to "Text", which is applied via the [generate_blueprint.js](https://github.com/Rise-Vision/html-template-library/blob/master/generate_blueprint.js) file for a HTML Template build/deployment.
-
-The component provides an additional numeric property, `fontsize`, which can be used to specify a size in pixel units. This property exists mainly to allow users customization of `rise-rich-text` instances on Attribute Editor. If not provided in the template, the size of the text component will depend on external styling (it can still be customized on Attribute Editor).
-
-Also, by setting `multiline` attribute to `true`, the component is capable of handling line breaks from `value` and present them in multiple lines. Line breaks can be simulated locally by adding a line break to the value attribute in the HTML:
-
-```
-<rise-rich-text value="Hello
-   World!" fontsize="100" multiline="true">
-</rise-rich-text>
-```
 
 ### Attributes
 
 This component receives the following list of attributes:
 
 - **id**: ( string / required ): Unique HTMLElement id.
-- **value**: ( string / required ): The text value that is rendered.
-- **fontsize**: ( numeric / optional ): The size in pixels of the component to be rendered. If not provided, it relies on external styling.
-- **minfontsize**: (numeric / optional ): The minimum value the fontsize attribute can accept. Defaults to 1.
-- **maxfontsize**: (numeric / optional ): The maximum value the fontsize attribute can accept. Defaults to 200.
-- **multiline**: (boolean / optional ): If set to `true`, the component will preserve `value` line breaks and show them in multiple lines. Defaults to `false`.
+- **rich-text**: ( string / required ): A plain text or HTML.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
 
@@ -60,14 +56,9 @@ The component sends the following events:
   element.addEventListener('data-update', function (event) {
     console.log(event.type); // prints 'data-update'
     console.log(event.detail.newValue); // prints new text value
-    console.log(event.detail.oldValue); // prints old (previous) text value. If the changed property is fontsize, newValue will be equal to oldValue
-    console.log(event.detail.fontsize); // prints fontsize
+    console.log(event.detail.oldValue); // prints old (previous) text value
   });
 ```
-- **data-error**: An event indicating there have been invalid attribute values provided. An error object is provided in `event.details`. This event will be sent once only. The reasons for failure are limited to:
-  - `fontsize` being out of bounds
-  - `minfontsize` being lower than 1
-  - `maxfontsize` being lower than 1 or lower than `minfontsize`
 
 ## Built With
 - [Polymer 3](https://www.polymer-project.org/)
