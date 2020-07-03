@@ -10,14 +10,14 @@
 ```
   <rise-rich-text
     id="rise-rich-text-greeting"
-    rich-text="<span style='font-size:100px; color:green'>Hello World!</span>">
+    richtext="<span style='font-size:100px; color:green'>Hello World!</span>">
   </rise-rich-text>
 ```
 ##### Plain Text
 ```
   <rise-rich-text
     id="rise-rich-text-greeting" 
-    rich-text="Hello World!">
+    richtext="Hello World!">
   </rise-rich-text>
 ```
 
@@ -31,7 +31,7 @@ This attribute holds a literal value, for example:
   <rise-rich-text
     id="rise-rich-text-greeting"
     label="Greeting"
-    rich-text="Hello World!">
+    richtext="Hello World!">
   </rise-rich-text>
 ```
 
@@ -42,7 +42,7 @@ If it's not set, the label for the component defaults to "Text", which is applie
 This component receives the following list of attributes:
 
 - **id**: ( string / required ): Unique HTMLElement id.
-- **rich-text**: ( string / required ): A plain text or HTML.
+- **richtext**: ( string / required ): A plain text or HTML.
 - **label**: ( string / optional ): An optional label key for the text that will appear in the template editor. See 'Labels' section above.
 - **non-editable**: ( empty / optional ): If present, it indicates this component is not available for customization in the template editor.
 

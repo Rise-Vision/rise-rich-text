@@ -10,7 +10,7 @@ export default class RiseRichText extends RiseElement {
 
   static get properties() {
     return {
-      richText: {
+      richtext: {
         type: String,
         observer: "_richTextChanged"
       }
@@ -30,7 +30,7 @@ export default class RiseRichText extends RiseElement {
   }
 
   _refresh() {
-    this.shadowRoot.innerHTML = this.richText;
+    this.shadowRoot.innerHTML = this.richtext;
   }
 }
 
