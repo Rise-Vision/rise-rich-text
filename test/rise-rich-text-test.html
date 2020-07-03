@@ -25,7 +25,7 @@
 
     <test-fixture id="StaticValueTestFixture">
       <template>
-        <rise-rich-text rich-text="Hello World"></rise-rich-text>
+        <rise-rich-text richtext="Hello World"></rise-rich-text>
       </template>
     </test-fixture>
 
@@ -58,13 +58,13 @@
           sandbox.restore();
         });
 
-        test('setting "rich-text" attribute on the element works', () => {
-          assert.equal(element.richText, 'Hello World');
+        test('setting "richtext" attribute on the element works', () => {
+          assert.equal(element.richtext, 'Hello World');
         });
 
-        test('updating "rich-text" attribute on the element works', (done) => {
-          element.setAttribute('rich-text', 'New Value with special characters > < & " \' / ');
-          assert.equal(element.richText, 'New Value with special characters > < & " \' / ');
+        test('updating "richtext" attribute on the element works', (done) => {
+          element.setAttribute('richtext', 'New Value with special characters > < & " \' / ');
+          assert.equal(element.richtext, 'New Value with special characters > < & " \' / ');
 
           element.addEventListener('data-update', function (event) {
             assert.equal(event.type, 'data-update');
@@ -73,12 +73,12 @@
             done();
           });
 
-          element.setAttribute('rich-text', 'New Value 2');
+          element.setAttribute('richtext', 'New Value 2');
         });
 
-        test('updating "richText" property on the element works', (done) => {
-          element['richText'] = 'New Value with special characters > < & " \' / ';
-          assert.equal(element.richText, 'New Value with special characters > < & " \' / ');
+        test('updating "richtext" property on the element works', (done) => {
+          element['richtext'] = 'New Value with special characters > < & " \' / ';
+          assert.equal(element.richtext, 'New Value with special characters > < & " \' / ');
 
           element.addEventListener('data-update', function (event) {
             assert.equal(event.type, 'data-update');
@@ -87,7 +87,7 @@
             done();
           });
 
-          element['richText'] = 'New Value 2';
+          element['richtext'] = 'New Value 2';
         });
 
       });
