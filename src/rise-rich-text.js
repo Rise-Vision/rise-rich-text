@@ -26,29 +26,11 @@ export default class RiseRichText extends RiseElement {
 
   _richTextChanged(newValue, oldValue) {
     this._refresh();
-    this._sendRichTextEvent( RiseRichText.EVENT_DATA_UPDATE, {newValue, oldValue});
-  }
-
-  _richTextIsSet() {
-    return typeof this.richText !== "undefined"
+    super._sendEvent( RiseRichText.EVENT_DATA_UPDATE, {newValue, oldValue});
   }
 
   _refresh() {
     this.shadowRoot.innerHTML = this.richText;
-  }
-
-  _sendRichTextEvent( eventName, detail ) {
-    super._sendEvent( eventName, detail );
-
-    switch ( eventName ) {
-      case RiseRichText.EVENT_DATA_ERROR:
-        super._setUptimeError( true );
-        break;
-      case RiseRichText.EVENT_DATA_UPDATE:
-        super._setUptimeError( false );
-        break;
-      default:
-    }
   }
 }
 

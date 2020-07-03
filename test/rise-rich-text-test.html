@@ -25,7 +25,7 @@
 
     <test-fixture id="StaticValueTestFixture">
       <template>
-        <rise-rich-text value="Hello World" multiline="true"></rise-rich-text>
+        <rise-rich-text rich-text="Hello World"></rise-rich-text>
       </template>
     </test-fixture>
 
@@ -58,13 +58,13 @@
           sandbox.restore();
         });
 
-        test('setting "value" attribute on the element works', () => {
-          assert.equal(element.value, 'Hello World');
+        test('setting "rich-text" attribute on the element works', () => {
+          assert.equal(element.richText, 'Hello World');
         });
 
-        test('updating "value" attribute on the element works', (done) => {
-          element.setAttribute('value', 'New Value with special characters > < & " \' / ');
-          assert.equal(element.value, 'New Value with special characters > < & " \' / ');
+        test('updating "rich-text" attribute on the element works', (done) => {
+          element.setAttribute('rich-text', 'New Value with special characters > < & " \' / ');
+          assert.equal(element.richText, 'New Value with special characters > < & " \' / ');
 
           element.addEventListener('data-update', function (event) {
             assert.equal(event.type, 'data-update');
@@ -73,138 +73,23 @@
             done();
           });
 
-          element.setAttribute('value', 'New Value 2');
+          element.setAttribute('rich-text', 'New Value 2');
         });
 
-        test('updating "value" property on the element works', (done) => {
-          element['value'] = 'New Value with special characters > < & " \' / ';
-          assert.equal(element.value, 'New Value with special characters > < & " \' / ');
+        test('updating "richText" property on the element works', (done) => {
+          element['richText'] = 'New Value with special characters > < & " \' / ';
+          assert.equal(element.richText, 'New Value with special characters > < & " \' / ');
 
           element.addEventListener('data-update', function (event) {
             assert.equal(event.type, 'data-update');
             assert.equal(event.detail.newValue, 'New Value 2');
             assert.equal(event.detail.oldValue, 'New Value with special characters > < & " \' / ');
-            assert( element._setUptimeError.calledWith( false ) );
             done();
           });
 
-          element['value'] = 'New Value 2';
+          element['richText'] = 'New Value 2';
         });
 
-        test('setting "multiline" attribute on the element works', () => {
-          assert.equal(element.multiline, true);
-        });
-
-        test('"configured" event should be sent when "ready" is called', (done) => {
-          element.addEventListener('configured', function (event) {
-            assert.equal(event.type, 'configured');
-            done();
-          });
-
-          //calling "ready" should trigger event
-          element.ready();
-        });
-
-        suite('validFont', () => {
-          test('validFont should be set to true when fontsize is valid', (done) => {
-            element.ready();
-            element.fontsize = 100;
-
-            setTimeout(() => {
-              assert(element.validFont);
-              done();
-            }, 100);
-          });
-
-          test('validFont should be set to false when fontsize is not valid', (done) => {
-            element.ready();
-            element.fontsize = -1;
-
-            setTimeout(() => {
-              assert(!element.validFont);
-              done();
-            }, 100);
-          });
-        });
-
-        suite('min and max font size', () => {
-          test('an error should be logged when minfontsize is not valid', (done) => {
-            element.ready();
-            element.minfontsize = -1;
-
-            setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Minimum font size must be greater than 0' );
-              assert( element._setUptimeError.calledWith( true ) );
-              done();
-            }, 100);
-          });
-
-          test('an error should be logged when minfontsize is not valid', (done) => {
-            element.ready();
-            element.maxfontsize = -1;
-
-            setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than 0' );
-              assert( element._setUptimeError.calledWith( true ) );
-              done();
-            }, 100);
-          });
-
-          test('an error should be logged when minfontsize > maxfontsize', (done) => {
-            element.ready();
-            element.minfontsize = 20;
-            element.maxfontsize = 10;
-
-            setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
-              assert( element._setUptimeError.calledWith( true ) );
-              done();
-            }, 100);
-          });
-
-          test('an error should be logged when minfontsize > maxfontsize', (done) => {
-            element.ready();
-            element.minfontsize = 20;
-            element.maxfontsize = 10;
-
-            setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Maximum font size must be greater than minimum' );
-              assert( element._setUptimeError.calledWith( true ) );
-              done();
-            }, 100);
-          });
-
-          test('an error should be logged when fontsize is out of [minfontsize, maxfontsize] bounds', (done) => {
-            element.ready();
-            element.minfontsize = 10;
-            element.maxfontsize = 20;
-            element.fontsize = 30;
-
-            setTimeout(() => {
-              assert( element.log.getCall(0).args[0], 'data-error' );
-              assert( element.log.getCall(0).args[1], 'Font size must be lower than or equal to the maximum' );
-              assert( element._setUptimeError.calledWith( true ) );
-              done();
-            }, 100);
-          });
-
-          test('uptime errors should be cleared when fontsize is valid', (done) => {
-            element.ready();
-            element.minfontsize = 10;
-            element.maxfontsize = 20;
-            element.fontsize = 15;
-
-            setTimeout(() => {
-              assert( !element.log.called );
-              assert( element._setUptimeError.calledWith( false ) );
-              done();
-            }, 100);
-          });
-        });
       });
     </script>
 
