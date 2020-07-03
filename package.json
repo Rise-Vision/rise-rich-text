@@ -1,6 +1,6 @@
 {
   "name": "rise-rich-text",
-  "version": "3.1.0",
+  "version": "1.0.0",
   "description": "Web component for displaying text on a Rise Vision Template page",
   "scripts": {
     "prebuild": "eslint .",
