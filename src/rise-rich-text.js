@@ -40,7 +40,15 @@ export default class RiseRichText extends RiseElement {
 
   _googleFontsChanged() {
     if (this.googlefonts && this.googlefonts.length) {
-      this.googleFontsLink.href =  "https://fonts.googleapis.com/css2?display=swap&family=" + encodeURI(this.googlefonts.join("&family="));
+      const googleFontsUrl = "https://fonts.googleapis.com/css2?display=swap&family=" + encodeURI(this.googlefonts.join("&family="));
+
+      // Check if URL has changed becase _googleFontsChanged is triggered every time when 
+      // googlefonts or richtext properties change. It causes unecessary blinking in Editor preview.
+      // Using observer that monitors array mutations https://polymer-library.polymer-project.org/3.0/docs/devguide/observers#array-observation
+      // does not fully solve the problem because changeRecord parameter is unreliable.
+      if (googleFontsUrl !== this.googleFontsLink.href) {
+        this.googleFontsLink.href =  googleFontsUrl;
+      }
     }
   }
 
