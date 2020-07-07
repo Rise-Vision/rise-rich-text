@@ -91,14 +91,23 @@
         });
 
         test('updating "googlefonts" property changes link url', () => {
+          var stub = sandbox.stub(element, '_setGoogleFontsLinkHref');
           element['googlefonts'] = ['font_a', 'font_b'];
-          assert.equal(element.googleFontsLink.href, 'https://fonts.googleapis.com/css2?display=swap&family=font_a&family=font_b');
+          assert.equal(stub.callCount, 1);
+          assert.equal(stub.args[0][0], 'https://fonts.googleapis.com/css2?display=swap&family=font_a&family=font_b');
         });
 
         test('clearing "googlefonts" property should not change link url', () => {
-          element['googlefonts'] = ['font_a', 'font_b'];
+          var stub = sandbox.stub(element, '_setGoogleFontsLinkHref');
           element['googlefonts'] = [];
-          assert.equal(element.googleFontsLink.href, 'https://fonts.googleapis.com/css2?display=swap&family=font_a&family=font_b');
+          assert.equal(stub.callCount, 0);
+        });
+
+        test('changing "googlefonts" property to the same value should not change link url', () => {
+          var stub = sandbox.spy(element, '_setGoogleFontsLinkHref');
+          element['googlefonts'] = ['font_a', 'font_b'];
+          element['googlefonts'] = ['font_a', 'font_b'];
+          assert.equal(stub.callCount, 1);
         });
       });
     </script>

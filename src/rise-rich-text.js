@@ -47,9 +47,13 @@ export default class RiseRichText extends RiseElement {
       // Using observer that monitors array mutations https://polymer-library.polymer-project.org/3.0/docs/devguide/observers#array-observation
       // does not fully solve the problem because changeRecord parameter is unreliable.
       if (googleFontsUrl !== this.googleFontsLink.href) {
-        this.googleFontsLink.href =  googleFontsUrl;
+        this._setGoogleFontsLinkHref(googleFontsUrl);
       }
     }
+  }
+
+  _setGoogleFontsLinkHref(value) {
+    this.googleFontsLink.href =  value;
   }
 
   _refresh() {
