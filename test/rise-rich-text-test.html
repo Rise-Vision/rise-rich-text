@@ -90,6 +90,16 @@
           element['richtext'] = 'New Value 2';
         });
 
+        test('updating "googlefonts" property changes link url', () => {
+          element['googlefonts'] = ['font_a', 'font_b'];
+          assert.equal(element.googleFontsLink.href, 'https://fonts.googleapis.com/css2?display=swap&family=font_a&family=font_b');
+        });
+
+        test('clearing "googlefonts" property should not change link url', () => {
+          element['googlefonts'] = ['font_a', 'font_b'];
+          element['googlefonts'] = [];
+          assert.equal(element.googleFontsLink.href, 'https://fonts.googleapis.com/css2?display=swap&family=font_a&family=font_b');
+        });
       });
     </script>
 
